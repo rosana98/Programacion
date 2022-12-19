@@ -25,7 +25,7 @@
             while (triunfos < 3 && perdidas < 3) { 
                 pc = aleatorio(1,3)
                 jugador = prompt("Elije: 1 para piedra , 2 para papel , 3 para tijera")
-                //alert ("Elejiste" + jugador)
+                //alert("Elejiste" + jugador)
 
                 alert("PC elige: " + eleccion(pc)) 
                 alert("Tu elijes: " + eleccion(jugador))
