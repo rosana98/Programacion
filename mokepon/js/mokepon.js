@@ -8,7 +8,7 @@ function iniciarJuego() {
     botonFuego.addEventListener(" click" , ataquefuego)
     let botonAgua = document.getElementById("boton-agua")
     botonAgua.addEventListener("click" , ataqueAgua)
-    let botonTierra = document.getElementById("botontierra")
+    let botonTierra = document.getElementById("boton-tierra")
     botonTierra.addEventListener("click" , ataqueTierra)
 
 }
