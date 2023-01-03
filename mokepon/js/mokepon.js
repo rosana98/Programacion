@@ -8,7 +8,7 @@ function iniciarJuego() {
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
 
     let botonFuego = document.getElementById("boton-fuego")
-    botonFuego.addEventListener(" click" , ataqueFuego)
+    botonFuego.addEventListener("click" , ataqueFuego)
     let botonAgua = document.getElementById("boton-agua")
     botonAgua.addEventListener("click" , ataqueAgua)
     let botonTierra = document.getElementById("boton-tierra")
@@ -82,15 +82,20 @@ function combate() {
     let spanVidasJugador = document.getElementById("vidas-jugador")
     let spanVidasEnemigo = document.getElementById("vidas-enemigo")
 
-
     if(ataqueEnemigo == ataqueJugador) { 
         crearMensaje("EMPATE")
     } else if(ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
         crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
     } else if(ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") {
         crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
     } else if(ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA") {
         crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
     } else {
         crearMensaje("PERDISTE")
         vidasJugador--
