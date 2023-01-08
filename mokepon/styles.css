@@ -17,7 +17,6 @@ body {
     color: white;
     font-size: 70px;   
     font-family: 'Silkscreen', cursive;
-
 }
 
 .subtitulo {
@@ -28,7 +27,6 @@ body {
 .tarjetas {
     display:flex;
     gap: 10px;
-    
 }
 
 .tarjeta-de-mokepon {
@@ -43,6 +41,11 @@ body {
     align-items: center;
     color: white;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tarjeta-de-mokepon:hover {
+    transform: scale(1.03);
 }
 
 .tarjeta-de-mokepon img {
@@ -62,7 +65,6 @@ body {
 
 input {
     display: none;
-    
 }
 
 #seleccionar-ataque {
@@ -79,5 +81,8 @@ input {
     width: 110px;
     color: white;
     font-family: 'Silkscreen', cursive;
+}
 
+button {
+    cursor: pointer;
 }

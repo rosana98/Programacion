@@ -140,8 +140,8 @@ function crearMensaje(resultado) {
      nuevoAtaqueDelJugador.innerHTML =ataqueJugador
      nuevoAtaqueDelEnemigo.innerHTML =ataqueEnemigo
 
-    ataqueJugador.appendChild(nuevoAtaqueDelJugador)
-    ataqueEnemigo.appendChild(nuevoAtaqueDelEnemigo)
+    ataquesDelJugador.appendChild(nuevoAtaqueDelJugador)
+    ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo)
 }
 
 function crearMensajeFinal(resultadoFinal) {
