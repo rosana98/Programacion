@@ -85,3 +85,35 @@ input {
 button {
     cursor: pointer;
 }
+
+#mensajes {
+    width: 280px;
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    background-color: #FFA41B;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-color: transparent;
+    color: white;
+    width: 110;
+   font-family: 'Silkscreen', cursive;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 180px 180px;
+    box-sizing: border-box;
+    background: #FFA41B;
+    margin-top: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
