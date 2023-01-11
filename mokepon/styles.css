@@ -23,7 +23,7 @@ body {
     font-size: 24px;
 }
 
-.tarjetas {
+.tarjetas, .tarjetas-ataques {
     display:flex;
     gap: 10px;
 }
@@ -63,7 +63,11 @@ body {
 }
 
 input {
-    display: none;
+   display: none;
+}
+
+input:checked + label {
+    background-color: red;
 }
 
 #seleccionar-ataque {
@@ -116,4 +120,10 @@ button {
     margin-top: 20px;
     border-radius: 20px;
     text-align: center;
+}
+
+@media (max-width: 300px) {
+   .tarjetas, .tarjetas-ataques {
+    flex-direction: column;
+   }
 }
