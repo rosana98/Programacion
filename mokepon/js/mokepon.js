@@ -2,6 +2,7 @@ const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque")
 const sectionReiniciar = document.getElementById("reiniciar")
 const botonMascotaJugador = document.getElementById("boton-mascota")
 const botonReiniciar = document.getElementById("boton-reiniciar")
+sectionReiniciar.style.display = 'none'
 
 const sectionSeleccionarMascota = document.getElementById("seleccionar-mascota")
 
