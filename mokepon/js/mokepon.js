@@ -191,13 +191,20 @@ function seleccionarMascotaEnemigo() {
 
 function ataqueAleatorioEnemigo() {
     let ataqueAleatorio = aleatorio(0,ataqueAleatorioEnemigo.length -1)
+    let ataque = ataquesMokeponEnemigo[ataqueAleatorio].nombre
 
-    ataqueEnemigo.push(ataquesMokeponEnemigo[ataqueAleatorio].nombre)
+    ataquesMokeponEnemigo.splice(ataqueAleatorio, 1)
 
-    ataquesMokeponEnemigo.splice[ataqueAleatorio, 1]
+    if(ataque == "🔥") {
+        ataqueEnemigo.push("FUEGO")
+    }else if (ataque == "💧") {
+        ataqueEnemigo.push("AGUA")
+    }else {
+        ataqueEnemigo.push("TIERRA")
+    }
     
     console.log(ataqueEnemigo)
-    console.log(ataquesMokeponEnemigo)
+    
     iniciarPelea()
 }
 
