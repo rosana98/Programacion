@@ -126,11 +126,7 @@ function seleccionarMascotaJugador() {
 
     //sectionSeleccionarAtaque.style.display = "flex"
     sectionVerMapa.style.display = "flex"
-    intervalo = setInterval(pintarPersonaje, 50)
-
-    window.addEventListener("keyup", sePresionoUnaTecla)
-
-    window.addEventListener("keyup", detenerMovimiento)
+    iniciarMapa()
 
     if (inputHipodoge.checked) {
         spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -361,10 +357,16 @@ function sePresionoUnaTecla(event) {
                 break
          default:
             break    
-
-            console.log(event)
     }
     
+}
+
+function iniciarMapa() {
+    intervalo = setInterval(pintarPersonaje, 50)
+    
+    window.addEventListener('keydown', sePresionoUnaTecla)
+
+    window.addEventListener('keyup', detenerMovimiento)
 }
 
 window.addEventListener("load", iniciarJuego)
