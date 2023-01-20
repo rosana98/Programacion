@@ -345,7 +345,7 @@ function sePresionoUnaTecla(event) {
     switch (event.key) {
         case "ArrowUp":
             moverArriba()
-            break
+               break
             case 'ArrowDown':
                 moverAbajo()
                 break
