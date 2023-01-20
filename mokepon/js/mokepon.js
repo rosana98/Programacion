@@ -321,19 +321,49 @@ function pintarPersonaje() {
 }
 
 function moverDerecha() {
-    capipepo.velocidadX = 5
+    // Mientras la posición X del mokepon sea 
+    // menor or igual al ancho del mapa 
+    // menos el ancho del mokepon dejar mover 
+    // a la derecha sino dejarlo quieto
+    if (capipepo.x <= (mapa.width - capipepo.ancho)) {
+        capipepo.velocidadX = 5
+    } else {
+        capipepo.velocidadX = 0
+    }
 }
 
 function moverIzquierda() {
-    capipepo.velocidadX = -5
+    // Mientras la posición X del mokepon  
+    // sea mayor o igual a 0 dejarlo mover 
+    // a la izquierda sino dejarlo quieto
+    if (capipepo.x >= 0) {
+        capipepo.velocidadX = -5
+    } else {
+        capipepo.velocidadX = 0
+    }
 }
 
 function moverAbajo() {
-    capipepo.velocidadY = 5
+    // Mientras la posición Y del mokepon sea 
+    // menor or igual a la altura del mapa 
+    // menos la altura del mokepon dejar mover 
+    // hacia abajo sino dejarlo quieto
+    if (capipepo.y <= (mapa.height - capipepo.alto)) {
+        capipepo.velocidadY = 5
+    } else {
+        capipepo.velocidadY = 0
+    }
 }
 
 function moverArriba() {
-    capipepo.velocidadY = -5
+    // Mientras la posición Y del mokepon  
+    // sea mayor o igual a 0 dejarlo mover 
+    // hacia abajo sino dejarlo quieto
+    if (capipepo.y >= 0) {
+        capipepo.velocidadY = -5
+    } else {
+        capipepo.velocidadY = 0
+    }
 }
 
 function detenerMovimiento() {
@@ -342,23 +372,22 @@ function detenerMovimiento() {
 }
 
 function sePresionoUnaTecla(event) {
-    switch (event.key) {
-        case "ArrowUp":
+    switch (event.keyCode) {
+        case 38: // ArrowUp
             moverArriba()
-               break
-            case 'ArrowDown':
-                moverAbajo()
-                break
-            case 'ArrowLeft':
-                moverIzquierda()
-                break
-            case 'ArrowRight':
-                moverDerecha()
-                break
+            break
+        case 40: // ArrowDown
+            moverAbajo()
+            break
+        case 37: // ArrowLeft
+            moverIzquierda()
+            break
+        case 39: // ArrowRight
+            moverDerecha()
+            break
          default:
             break    
     }
-    
 }
 
 function iniciarMapa() {
