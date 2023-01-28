@@ -30,6 +30,7 @@ let inputHipodoge
 let inputCapipepo 
 let inputRatigueya 
 let mascotaJugador
+let mascotaJugadorObjeto
 let ataquesMokepon 
 let ataquesMokeponEnemigo
 let botonFuego 
@@ -44,27 +45,56 @@ let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
 let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = "./assests/mokemap.png"
+let alturaQueBuscamos 
+let anchoDelMapa = window.innerWidth -20 
+const anchoMaximoDelMapa = 350
+
+if (anchoDelMapa > anchoMaximoDelMapa) {
+    anchoDelMapa = anchoMaximoDelMapa - 20
+}
+
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+
 
 class Mokepon {
-    constructor(nombre, foto, vida) {
+    constructor(nombre, foto, vida, fotoMapa ) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida 
         this.ataques = []
-        this.x = 20
-        this.y = 30
-        this.ancho = 80
-        this.alto = 80
+        this.ancho = 40
+        this.alto = 40
+        this.x = aleatorio(0, mapa.width - this.ancho)
+        this.y = aleatorio(0, mapa.height - this.alto)
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
     }
+
+    pintarMokepon() {
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+        )
+    }
 }
 
-let hipodoge = new Mokepon("Hipodoge", "./assests/mokepons_mokepon_hipodoge_attack.png" , 5)
-let capipepo = new Mokepon("Capipepo", "./assests/mokepons_mokepon_capipepo_attack.png" , 5)
-let ratigueya = new Mokepon("Ratigueya", "./assests/mokepons_mokepon_ratigueya_attack.png" ,5)
+let hipodoge = new Mokepon("Hipodoge", "./assests/mokepons_mokepon_hipodoge_attack.png" , 5, "./assests/hipodoge.png")
+let capipepo = new Mokepon("Capipepo", "./assests/mokepons_mokepon_capipepo_attack.png" , 5, "./assests/capipepo.png")
+let ratigueya = new Mokepon("Ratigueya", "./assests/mokepons_mokepon_ratigueya_attack.png" ,5, "./assests/ratigueya.png")
+let hipodogeEnemigo = new Mokepon("Hipodoge", "./assests/mokepons_mokepon_hipodoge_attack.png" , 5, "./assests/hipodoge.png")
+let capipepoEnemigo = new Mokepon("Capipepo", "./assests/mokepons_mokepon_capipepo_attack.png" , 5, "./assests/capipepo.png")
+let ratigueyaEnemigo = new Mokepon("Ratigueya", "./assests/mokepons_mokepon_ratigueya_attack.png" ,5, "./assests/ratigueya.png")
 
 hipodoge.ataques.push(
     { nombre: "💧", id: "boton-agua" },
@@ -124,10 +154,6 @@ function seleccionarMascotaJugador() {
     
     sectionSeleccionarMascota.style.display = "none"
 
-    //sectionSeleccionarAtaque.style.display = "flex"
-    sectionVerMapa.style.display = "flex"
-    iniciarMapa()
-
     if (inputHipodoge.checked) {
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -140,8 +166,12 @@ function seleccionarMascotaJugador() {
     } else {
         alert("Selecciona una mascota")
     }
+
     extraerAtaques(mascotaJugador)
+    sectionVerMapa.style.display = "flex"
+    iniciarMapa() 
     seleccionarMascotaEnemigo()
+
 }
 
 function extraerAtaques(mascotaJugador) {
@@ -307,95 +337,123 @@ function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function pintarPersonaje() {
-    capipepo.x = capipepo.x + capipepo.velocidadX
-    capipepo.y = capipepo.y + capipepo.velocidadY
+function pintarCanvas() {
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
-        capipepo.mapaFoto,
-        capipepo.x,
-        capipepo.y,
-        capipepo.ancho,
-        capipepo.alto
+    mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
     )
+   mascotaJugadorObjeto.pintarMokepon()
+   hipodogeEnemigo.pintarMokepon()
+   capipepoEnemigo.pintarMokepon()
+   ratigueyaEnemigo.pintarMokepon()
+   if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
+    revisarColision(hipodogeEnemigo)
+    revisarColision(capipepoEnemigo)
+    revisarColision(ratigueyaEnemigo)
+}
+
 }
 
 function moverDerecha() {
-    // Mientras la posición X del mokepon sea 
-    // menor or igual al ancho del mapa 
-    // menos el ancho del mokepon dejar mover 
-    // a la derecha sino dejarlo quieto
-    if (capipepo.x <= (mapa.width - capipepo.ancho)) {
-        capipepo.velocidadX = 5
-    } else {
-        capipepo.velocidadX = 0
-    }
+
+    mascotaJugadorObjeto.velocidadX = 5
 }
 
 function moverIzquierda() {
-    // Mientras la posición X del mokepon  
-    // sea mayor o igual a 0 dejarlo mover 
-    // a la izquierda sino dejarlo quieto
-    if (capipepo.x >= 0) {
-        capipepo.velocidadX = -5
-    } else {
-        capipepo.velocidadX = 0
-    }
+
+    mascotaJugadorObjeto.velocidadX = -5
 }
 
 function moverAbajo() {
-    // Mientras la posición Y del mokepon sea 
-    // menor or igual a la altura del mapa 
-    // menos la altura del mokepon dejar mover 
-    // hacia abajo sino dejarlo quieto
-    if (capipepo.y <= (mapa.height - capipepo.alto)) {
-        capipepo.velocidadY = 5
-    } else {
-        capipepo.velocidadY = 0
-    }
+
+    mascotaJugadorObjeto.velocidadY = 5
 }
 
 function moverArriba() {
-    // Mientras la posición Y del mokepon  
-    // sea mayor o igual a 0 dejarlo mover 
-    // hacia abajo sino dejarlo quieto
-    if (capipepo.y >= 0) {
-        capipepo.velocidadY = -5
-    } else {
-        capipepo.velocidadY = 0
-    }
+    mascotaJugadorObjeto.velocidadY = -5
 }
+    
 
 function detenerMovimiento() {
-    capipepo.velocidadX = 0
-    capipepo.velocidadY = 0
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
 }
+    
+
+
 
 function sePresionoUnaTecla(event) {
     switch (event.keyCode) {
-        case 38: // ArrowUp
+        case 38: 
             moverArriba()
             break
-        case 40: // ArrowDown
+        case 40: 
             moverAbajo()
             break
-        case 37: // ArrowLeft
+        case 37: 
             moverIzquierda()
             break
-        case 39: // ArrowRight
+        case 39: 
             moverDerecha()
             break
          default:
             break    
     }
 }
-
 function iniciarMapa() {
-    intervalo = setInterval(pintarPersonaje, 50)
+
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    console.log(mascotaJugadorObjeto, mascotaJugador);
+    intervalo = setInterval(pintarCanvas, 50)
     
     window.addEventListener('keydown', sePresionoUnaTecla)
 
     window.addEventListener('keyup', detenerMovimiento)
 }
 
-window.addEventListener("load", iniciarJuego)
+function obtenerObjetoMascota() {
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre) {
+            return mokepones[i]
+        }
+        
+    }
+}
+
+function revisarColision(enemigo) {
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMascota = 
+        mascotaJugadorObjeto.y
+    const abajoMascota = 
+        mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = 
+        mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota = 
+        mascotaJugadorObjeto.x
+
+    if(
+        abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo
+    ) {
+        return
+    }
+
+    detenerMovimiento()
+    sectionSeleccionarAtaque.style.display = "flex"
+    //alert("Hay colision" + enemigo.nombre)
+}
+
+window.addEventListener('load', iniciarJuego)
+

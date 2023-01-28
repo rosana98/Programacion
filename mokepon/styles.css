@@ -14,7 +14,7 @@ body {
 
 .titulo {
     color: white;
-    font-size: 70px;   
+    font-size: 60px;   
     font-family: 'Silkscreen', cursive;
 }
 
@@ -128,12 +128,27 @@ button {
     justify-content: center;
 }
 
-#mapa {
+#ver-mapa button {
+    width: 90px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
     border: 2px solid white;
+    color: white;
+    font-family: 'Silkscreen', cursive;
+    margin: 10px 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 560px) {
    .tarjetas, .tarjetas-ataques {
     flex-direction: column;
    }
 }
+
+@media (max-width: 300px) {
+    #ver-mapa div {
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+    }
+ }
